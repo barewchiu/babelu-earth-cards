@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贝贝鲁地球百科卡片</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .app-container {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, #e0f2fe, #bfdbfe);
+        }
+        
+        .header {
+            background-color: #4338ca;
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav-list {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-description {
+            font-size: 1.125rem;
+            text-align: center;
+            max-width: 42rem;
+            margin: 0 auto 1rem auto;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            border: none;
+            background-color: #e0e7ff;
+            color: #4338ca;
+            cursor: pointer;
+        }
+        
+        .filter-button.active {
+            background-color: #4338ca;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            position: relative;
+            width: 16rem;
+            height: 24rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transform: scale(1);
+            transition: transform 0.5s;
+            perspective: 1000px;
+            margin: 0 auto;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        /* 卡片正反面基本样式 */
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.5rem;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transition: opacity 0.4s, transform 0.6s;
+        }
+        
+        /* 背面初始状态 */
+        .card-back {
+            opacity: 0;
+        }
+        
+        /* 卡片翻转后，正面隐藏 */
+        .card.flipped .card-front {
+            opacity: 0;
+        }
+        
+        /* 卡片框旋转控制 */
+        .card.flipped .card-back {
+            opacity: 1;
+            transform: rotate(90deg); /* 卡片框向右旋转90度 */
+        }
+        
+        /* 卡片背面样式 */
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s, transform 0.6s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            /* 移除overflow: hidden，允许内容超出容器 */
+            /* 移除border-radius，避免裁剪图片 */
+        }
+        
+        /* 卡片翻转后，背面显示 */
+        .card.flipped .card-back {
+            opacity: 1;
+            transform: rotate(0deg); /* 不旋转卡片框 */
+        }
+        
+        /* 卡片背面图片样式 */
+        .card-back img {
+            width: 150%; /* 增加宽度，使图片超出卡片框 */
+            height: 150%; /* 增加高度，使图片超出卡片框 */
+            object-fit: contain; /* 确保图片完整显示 */
+            /* 移除border-radius，避免裁剪图片 */
+            position: absolute; /* 使用绝对定位，允许图片超出容器 */
+            z-index: 10; /* 确保图片在最上层 */
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+        
+        .card-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+        
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .card-subtitle {
+            font-size: 0.875rem;
+            margin: 0.25rem 0 0;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 0.5rem;
+        }
+        
+        .pagination-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            border: none;
+            background-color: #e0e7ff;
+            color: #4338ca;
+            cursor: pointer;
+        }
+        
+        .pagination-button.active {
+            background-color: #4338ca;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .pagination-button:disabled {
+            background-color: #e0e7ff;
+            color: #a5b4fc;
+            cursor: not-allowed;
+        }
+        
+        .footer {
+            background-color: #1f2937;
+            color: white;
+            padding: 1.5rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-text {
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="header-title">贝贝鲁地球百科卡片</h1>
+                <nav>
+                    <ul class="nav-list">
+                        <li><a href="#" class="nav-link">首页</a></li>
+                        <li><a href="#" class="nav-link">探索</a></li>
+                        <li><a href="#" class="nav-link">收藏</a></li>
+                        <li><a href="#" class="nav-link">关于</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <main class="main-content">
+            <section style="margin-bottom: 3rem;">
+                <h2 class="section-title">东方传说卡片集</h2>
+                <p class="section-description">
+                    探索东方传说中的神秘地理、宗教建筑和文化遗产。点击卡片可以查看详细信息！
+                </p>
+                
+                <div class="filter-container" id="filter-container">
+                    <!-- 筛选按钮将通过JavaScript动态添加 -->
+                </div>
+                
+                <div class="cards-grid" id="cards-grid"></div>
+                
+                <div class="pagination" id="pagination"></div>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-text">© 2025 贝贝鲁地球百科卡片 - 为6-12岁儿童打造的地理知识探索游戏</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 调试函数，检查图片是否存在
+        function checkImageExists(url, callback) {
+            const img = new Image();
+            img.onload = function() { callback(true); };
+            img.onerror = function() { callback(false); };
+            img.src = url;
+        }
+
+        // 显示图片加载状态
+        function showImageLoadStatus() {
+            const firstCardFront = cards[0].frontImage;
+            const statusDiv = document.createElement('div');
+            statusDiv.style.padding = '10px';
+            statusDiv.style.margin = '10px';
+            statusDiv.style.backgroundColor = '#f0f0f0';
+            statusDiv.style.border = '1px solid #ccc';
+            statusDiv.style.borderRadius = '5px';
+            
+            statusDiv.innerHTML = `
+                <h3>图片路径调试信息</h3>
+                <p>第一张卡片正面图片路径: ${firstCardFront}</p>
+                <p>检查图片是否存在...</p>
+            `;
+            
+            document.body.insertBefore(statusDiv, document.body.firstChild);
+            
+            checkImageExists(firstCardFront, function(exists) {
+                statusDiv.innerHTML += `<p>图片${exists ? '存在' : '不存在'}</p>`;
+                if (!exists) {
+                    statusDiv.innerHTML += `
+                        <p>尝试其他路径:</p>
+                        <ul>
+                            <li>../卡牌图片/: <span id="path1"></span></li>
+                            <li>/卡牌图片/: <span id="path2"></span></li>
+                            <li>./卡牌图片/: <span id="path3"></span></li>
+                        </ul>
+                    `;
+                    
+                    const baseName = firstCardFront.split('/').pop();
+                    checkImageExists(`../卡牌图片/${baseName}`, function(e) {
+                        document.getElementById('path1').textContent = e ? '存在' : '不存在';
+                    });
+                    checkImageExists(`/卡牌图片/${baseName}`, function(e) {
+                        document.getElementById('path2').textContent = e ? '存在' : '不存在';
+                    });
+                    checkImageExists(`./卡牌图片/${baseName}`, function(e) {
+                        document.getElementById('path3').textContent = e ? '存在' : '不存在';
+                    });
+                }
+            });
+        }
+
+        // 卡片数据
+        const cards = [
+            {
+                id: "0013",
+                name: "南马都尔遗迹",
+                region: "太平洋岛",
+                category: "宗教",
+                subcategory: "筑",
+                frontImage: "../卡牌图片/0013太平洋岛-宗教-筑-南马都尔遗迹（正）.jpg",
+                backImage: "../卡牌图片/0013太平洋岛-宗教-筑-南马都尔遗迹（反）.jpg"
+            },
+            {
+                id: "0036",
+                name: "抹香鲸",
+                region: "西欧",
+                category: "生物",
+                subcategory: "水生",
+                frontImage: "../卡牌图片/0036西欧-生物-水生-抹香鲸（正）.jpg",
+                backImage: "../卡牌图片/0036西欧-生物-水生-抹香鲸（反）.jpg"
+            },
+            {
+                id: "0037",
+                name: "蓝鲸",
+                region: "非洲南",
+                category: "生物",
+                subcategory: "水生",
+                frontImage: "../卡牌图片/0037非洲南-生物-水生-蓝鲸（正）.jpg",
+                backImage: "../卡牌图片/0037非洲南-生物-水生-蓝鲸（反）.jpg"
+            },
+            {
+                id: "0050",
+                name: "伊利亚特",
+                region: "东欧",
+                category: "财宝",
+                subcategory: "经典",
+                frontImage: "../卡牌图片/0050东欧-财宝-经典-伊利亚特（正）.jpg",
+                backImage: "../卡牌图片/0050东欧-财宝-经典-伊利亚特（反）.jpg"
+            },
+            {
+                id: "0079",
+                name: "吉萨金字塔",
+                region: "非洲北",
+                category: "宗教",
+                subcategory: "筑",
+                frontImage: "../卡牌图片/0079非洲北-宗教-筑-吉萨金字塔（正）.jpg",
+                backImage: "../卡牌图片/0079非洲北-宗教-筑-吉萨金字塔（反）.jpg"
+            },
+            {
+                id: "0107",
+                name: "巴别塔",
+                region: "东欧",
+                category: "美术",
+                subcategory: "艺术",
+                frontImage: "../卡牌图片/0107东欧-美术-艺术-巴别塔（正）.jpg",
+                backImage: "../卡牌图片/0107东欧-美术-艺术-巴别塔（反）.jpg"
+            },
+            {
+                id: "0109",
+                name: "通天塔",
+                region: "东欧",
+                category: "美术",
+                subcategory: "艺术",
+                frontImage: "../卡牌图片/0109东欧-美术-艺术-通天塔（正）.jpg",
+                backImage: "../卡牌图片/0109东欧-美术-艺术-通天塔（反）.jpg"
+            },
+            {
+                id: "0136",
+                name: "帝汶岛",
+                region: "东南亚",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0136东南亚-地理-地-帝汶岛（正）.jpg",
+                backImage: "../卡牌图片/0136东南亚-地理-地-帝汶岛（反）.jpg"
+            },
+            {
+                id: "0138",
+                name: "帕劳群岛",
+                region: "东南亚",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0138东南亚-地理-地-帕劳群岛（正）.jpg",
+                backImage: "../卡牌图片/0138东南亚-地理-地-帕劳群岛（反）.jpg"
+            },
+            {
+                id: "0139",
+                name: "塔斯马尼亚岛",
+                region: "澳洲",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0139澳洲-地理-地-塔斯马尼亚岛（正）.jpg",
+                backImage: "../卡牌图片/0139澳洲-地理-地-塔斯马尼亚岛（反）.jpg"
+            },
+            {
+                id: "0142",
+                name: "斐济群岛",
+                region: "太平洋岛",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0142太平洋岛-地理-地-斐济群岛（正）.jpg",
+                backImage: "../卡牌图片/0142太平洋岛-地理-地-斐济群岛（反）.jpg"
+            },
+            {
+                id: "0143",
+                name: "塔希提岛",
+                region: "太平洋岛",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0143太平洋岛-地理-地-塔希提岛（正）.jpg",
+                backImage: "../卡牌图片/0143太平洋岛-地理-地-塔希提岛（反）.jpg"
+            },
+            {
+                id: "0144",
+                name: "复活节岛",
+                region: "太平洋岛",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0144太平洋岛-地理-地-复活节岛（正）.jpg",
+                backImage: "../卡牌图片/0144太平洋岛-地理-地-复活节岛（反）.jpg"
+            },
+            {
+                id: "0146",
+                name: "阿基维祭坛的摩艾",
+                region: "太平洋岛",
+                category: "宗教",
+                subcategory: "筑",
+                frontImage: "../卡牌图片/0146太平洋岛-宗教-筑-阿基维祭坛的摩艾（正）.jpg",
+                backImage: "../卡牌图片/0146太平洋岛-宗教-筑-阿基维祭坛的摩艾（反）.jpg"
+            },
+            {
+                id: "0147",
+                name: "霍图∙玛图阿王的摩艾",
+                region: "太平洋岛",
+                category: "宗教",
+                subcategory: "筑",
+                frontImage: "../卡牌图片/0147太平洋岛-宗教-筑-霍图∙玛图阿王的摩艾（正）.jpg",
+                backImage: "../卡牌图片/0147太平洋岛-宗教-筑-霍图∙玛图阿王的摩艾（反）.jpg"
+            },
+            {
+                id: "0148",
+                name: "东加历奇的摩艾",
+                region: "太平洋岛",
+                category: "宗教",
+                subcategory: "筑",
+                frontImage: "../卡牌图片/0148太平洋岛-宗教-筑-东加历奇的摩艾（正）.jpg",
+                backImage: "../卡牌图片/0148太平洋岛-宗教-筑-东加历奇的摩艾（反）.jpg"
+            },
+            {
+                id: "0151",
+                name: "太平洋",
+                region: "太平洋岛",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0151太平洋岛-地理-地-太平洋（正）.jpg",
+                backImage: "../卡牌图片/0151太平洋岛-地理-地-太平洋（反）.jpg"
+            },
+            {
+                id: "0152",
+                name: "宿雾岛",
+                region: "东南亚",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0152东南亚-地理-地-宿雾岛（正）.jpg",
+                backImage: "../卡牌图片/0152东南亚-地理-地-宿雾岛（反）.jpg"
+            },
+            {
+                id: "0171",
+                name: "波纳佩岛",
+                region: "太平洋岛",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0171太平洋岛-地理-地-波纳佩岛（正）.jpg",
+                backImage: "../卡牌图片/0171太平洋岛-地理-地-波纳佩岛（反）.jpg"
+            },
+            {
+                id: "0174",
+                name: "安赫尔瀑布",
+                region: "南美",
+                category: "地理",
+                subcategory: "地",
+                frontImage: "../卡牌图片/0174南美-地理-地-安赫尔瀑布（正）.jpg",
+                backImage: "../卡牌图片/0174南美-地理-地-安赫尔瀑布（反）.jpg"
+            }
+        ];
+
+        // 全局变量
+        let flippedCardId = null;
+        let currentFilter = 'all';
+        let currentPage = 1;
+        const cardsPerPage = 6;
+
+        // 获取所有地区
+        const regions = [...new Set(cards.map(card => card.region))];
+
+        // 初始化页面
+        function initPage() {
+            // 添加地区筛选按钮
+            const filterContainer = document.getElementById('filter-container');
+            
+            // 确保"全部"按钮是第一个
+            const allButton = document.createElement('button');
+            allButton.className = 'filter-button active';
+            allButton.textContent = '全部';
+            allButton.dataset.filter = 'all';
+            allButton.addEventListener('click', () => handleFilterChange('all'));
+            filterContainer.appendChild(allButton);
+            
+            // 添加其他地区按钮
+            regions.forEach(region => {
+                const button = document.createElement('button');
+                button.className = 'filter-button';
+                button.textContent = region;
+                button.dataset.filter = region;
+                button.addEventListener('click', () => handleFilterChange(region));
+                filterContainer.appendChild(button);
+            });
+
+            // 初始渲染卡片
+            renderCards();
+        }
+
+        // 渲染卡片
+        function renderCards() {
+            // 根据筛选条件过滤卡片
+            const filteredCards = currentFilter === 'all' 
+                ? cards 
+                : cards.filter(card => card.region === currentFilter);
+                
+            // 计算总页数
+            const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
+            
+            // 获取当前页的卡片
+            const currentCards = filteredCards.slice(
+                (currentPage - 1) * cardsPerPage,
+                currentPage * cardsPerPage
+            );
+            
+            // 渲染卡片
+            const cardsGrid = document.getElementById('cards-grid');
+            cardsGrid.innerHTML = '';
+            
+            currentCards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = `card ${flippedCardId === card.id ? 'flipped' : ''}`;
+                cardElement.addEventListener('click', () => handleCardClick(card.id));
+                
+                cardElement.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <img src="${card.frontImage}" alt="${card.name}" class="card-image">
+                            <div class="card-info">
+                                <h3 class="card-title">${card.name}</h3>
+                                <p class="card-subtitle">${card.region} - ${card.category} - ${card.subcategory}</p>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <img src="${card.backImage}" alt="${card.name} 背面" class="card-image">
+                        </div>
+                    </div>
+                `;
+                
+                cardsGrid.appendChild(cardElement);
+            });
+            
+            // 渲染分页
+            renderPagination(totalPages);
+        }
+
+        // 渲染分页
+        function renderPagination(totalPages) {
+            if (totalPages <= 1) {
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+            
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            
+            // 上一页按钮
+            const prevButton = document.createElement('button');
+            prevButton.className = `pagination-button ${currentPage === 1 ? 'disabled' : ''}`;
+            prevButton.textContent = '上一页';
+            prevButton.disabled = currentPage === 1;
+            prevButton.addEventListener('click', () => handlePageChange(Math.max(1, currentPage - 1)));
+            pagination.appendChild(prevButton);
+            
+            // 页码按钮
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.className = `pagination-button ${currentPage === i ? 'active' : ''}`;
+                pageButton.textContent = i;
+                pageButton.addEventListener('click', () => handlePageChange(i));
+                pagination.appendChild(pageButton);
+            }
+            
+            // 下一页按钮
+            const nextButton = document.createElement('button');
+            nextButton.className = `pagination-button ${currentPage === totalPages ? 'disabled' : ''}`;
+            nextButton.textContent = '下一页';
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.addEventListener('click', () => handlePageChange(Math.min(totalPages, currentPage + 1)));
+            pagination.appendChild(nextButton);
+        }
+
+        // 处理卡片点击
+        function handleCardClick(cardId) {
+            flippedCardId = flippedCardId === cardId ? null : cardId;
+            renderCards();
+        }
+
+        // 处理筛选变化
+        function handleFilterChange(filter) {
+            currentFilter = filter;
+            currentPage = 1;
+            flippedCardId = null;
+            
+            // 更新筛选按钮状态
+            document.querySelectorAll('.filter-button').forEach(button => {
+                button.classList.toggle('active', button.dataset.filter === filter);
+            });
+            
+            // 根据筛选条件过滤卡片
+            const filteredCards = filter === 'all' 
+                ? cards 
+                : cards.filter(card => card.region === filter);
+                
+            // 如果没有找到匹配的卡片，显示提示信息
+            if (filteredCards.length === 0) {
+                alert(`没有找到与"${filter}"相关的卡片。`);
+                currentFilter = 'all'; // 重置为显示全部
+                document.querySelectorAll('.filter-button').forEach(button => {
+                    button.classList.toggle('active', button.dataset.filter === 'all');
+                });
+            }
+            
+            renderCards();
+        }
+
+        // 处理页面变化
+        function handlePageChange(page) {
+            currentPage = page;
+            flippedCardId = null;
+            renderCards();
+        }
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            initPage();
+            showImageLoadStatus();
+        });
+    </script>
+</body>
+</html>

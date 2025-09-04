@@ -17,7 +17,12 @@
 
 ## 🚀 在线预览
 
-🎮 **[点击这里体验游戏](https://barewchiu.github.io/babelu-earth-cards/)**
+### 🎮 **体验游戏**
+- **Vercel部署** (推荐): [https://babelu-earth-cards.vercel.app](https://babelu-earth-cards.vercel.app) ⚡ 极速加载
+- **GitHub Pages**: [https://barewchiu.github.io/babelu-earth-cards/](https://barewchiu.github.io/babelu-earth-cards/) 🔄 稳定版本
+
+### 📊 **部署状态**
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/barewchiu/babelu-earth-cards)
 
 ## 📱 功能特性
 
@@ -42,7 +47,7 @@
 - **动画**: Framer Motion
 - **路由**: React Router
 - **数据库**: Supabase (计划中)
-- **部署**: GitHub Pages
+- **部署**: Vercel + GitHub Pages
 
 ## 🎲 游戏数据
 
@@ -77,6 +82,15 @@ npm start
 npm run build
 ```
 
+### 部署到Vercel
+```bash
+# 安装Vercel CLI
+npm i -g vercel
+
+# 部署
+vercel --prod
+```
+
 ## 📈 项目进度
 
 - **总体进度**: 约70%完成
@@ -84,6 +98,16 @@ npm run build
 - **数据库**: 🔄 集成中
 - **前端界面**: ✅ 基本完成
 - **游戏逻辑**: 🔄 开发中
+
+## 🚀 部署平台对比
+
+| 特性 | Vercel | GitHub Pages |
+|------|--------|--------------|
+| 部署速度 | ⚡ 30秒 | 🔄 2-5分钟 |
+| 全球CDN | ✅ 高性能 | ✅ 基础 |
+| 预览部署 | ✅ 每个PR | ❌ 无 |
+| 自定义域名 | ✅ 简单 | ✅ 支持 |
+| 构建优化 | ✅ 自动 | ✅ 基础 |
 
 ## 🤝 贡献指南
 
@@ -102,8 +126,9 @@ npm run build
 
 ## 📞 联系我们
 
-- 项目链接: [https://github.com/barewchiu/babelu-earth-cards](https://github.com/barewchiu/babelu-earth-cards)
-- 在线预览: [https://barewchiu.github.io/babelu-earth-cards/](https://barewchiu.github.io/babelu-earth-cards/)
+- **项目仓库**: [https://github.com/barewchiu/babelu-earth-cards](https://github.com/barewchiu/babelu-earth-cards)
+- **Vercel预览**: [https://babelu-earth-cards.vercel.app](https://babelu-earth-cards.vercel.app)
+- **GitHub Pages**: [https://barewchiu.github.io/babelu-earth-cards/](https://barewchiu.github.io/babelu-earth-cards/)
 
 ---
 

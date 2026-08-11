@@ -33,7 +33,7 @@ jobs:
       - name: Build
         env:
           CI: false
-          DEMO_LIMIT: '24'
+          DEMO_LIMIT: '48'
           PUBLIC_URL: /babelu-earth-cards
         run: npm run build
         

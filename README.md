@@ -4,7 +4,7 @@
 
 - 本地：`npm install && npm start` → http://localhost:3001
 - 详细说明：[README-COMPANION.md](./README-COMPANION.md)
-- 演示卡图为精简子集（约 24 张）；全量数据见 `src/data/cards.full.json`
+- 演示卡图为精简子集（约 48 张）；全量数据见 `src/data/cards.full.json`
 
 在线部署（推送后）：优先看 Vercel / GitHub Pages 最新构建。
 

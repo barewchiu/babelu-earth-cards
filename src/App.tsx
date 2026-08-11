@@ -4,6 +4,7 @@ import DrawScreen from './components/companion/DrawScreen';
 import CollectionBox from './components/companion/CollectionBox';
 import BattleScreen from './components/companion/BattleScreen';
 import { CollectionMap, loadCollection } from './lib/collection';
+import { playClickSfx, unlockAudio } from './lib/audio';
 import './companion.css';
 
 type View = 'home' | 'draw' | 'collection' | 'battle';
@@ -14,6 +15,19 @@ function App() {
 
   useEffect(() => {
     setCollection(loadCollection());
+  }, []);
+
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      unlockAudio();
+      const target = event.target as HTMLElement | null;
+      if (!target) return;
+      const btn = target.closest('button.btn') as HTMLButtonElement | null;
+      if (!btn || btn.disabled) return;
+      playClickSfx();
+    };
+    document.addEventListener('pointerdown', onPointerDown, true);
+    return () => document.removeEventListener('pointerdown', onPointerDown, true);
   }, []);
 
   const collectedCount = Object.keys(collection).length;

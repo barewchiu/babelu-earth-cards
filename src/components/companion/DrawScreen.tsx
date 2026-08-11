@@ -11,7 +11,7 @@ import { CollectionMap, collectCard } from '../../lib/collection';
 import { getCardLore } from '../../lib/lore';
 import { speakLore, TtsHandle, TtsStatus } from '../../lib/tts';
 import { assetUrl } from '../../lib/assetUrl';
-import { duckBgm, unlockAudio } from '../../lib/audio';
+import { duckBgm, playCardRevealSfx, unlockAudio } from '../../lib/audio';
 import AudioControls from './AudioControls';
 
 interface DrawScreenProps {
@@ -135,6 +135,7 @@ const DrawScreen: React.FC<DrawScreenProps> = ({
     const card = drawCardFromFace(targetFace);
     setDrawn(card);
     setPhase('reveal');
+    if (card) playCardRevealSfx();
   }, [targetFace]);
 
   const handleCollect = () => {

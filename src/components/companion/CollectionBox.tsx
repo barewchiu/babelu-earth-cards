@@ -4,6 +4,7 @@ import { ALL_CARDS, CompanionCard, TOTAL_CARDS } from '../../data/catalog';
 import { CollectionMap } from '../../lib/collection';
 import { cardMatchesFace } from '../../data/regions';
 import CardFlip from './CardFlip';
+import AudioControls from './AudioControls';
 
 interface CollectionBoxProps {
   collection: CollectionMap;
@@ -35,9 +36,12 @@ const CollectionBox: React.FC<CollectionBoxProps> = ({ collection, onBack }) => 
           ← 返回
         </button>
         <h1>收藏盒</h1>
-        <span className="pill">
-          {ownedList.length}/{TOTAL_CARDS}
-        </span>
+        <div className="screen-bar__right">
+          <AudioControls />
+          <span className="pill">
+            {ownedList.length}/{TOTAL_CARDS}
+          </span>
+        </div>
       </header>
 
       <div className="collection-progress">

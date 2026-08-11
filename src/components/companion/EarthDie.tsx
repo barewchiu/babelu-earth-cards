@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { REGION_FACES } from '../../data/regions';
+import { assetUrl } from '../../lib/assetUrl';
 
 /** Approximate lat/lon for region facing (visual only) */
 const REGION_LATLON = {
@@ -117,7 +118,7 @@ const EarthDie = ({ spinning, targetFace, onSpinComplete, highlighted }) => {
     earthGroup.add(earth);
 
     const loader = new THREE.TextureLoader();
-    loader.load(`/brand/cartoon-earth.png?v=2`, (tex) => {
+    loader.load(`${assetUrl('/brand/cartoon-earth.png')}?v=2`, (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy?.() || 1);
       earthMat.map = tex;

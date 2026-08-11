@@ -10,6 +10,9 @@ import {
 import { CollectionMap, collectCard } from '../../lib/collection';
 import { getCardLore } from '../../lib/lore';
 import { speakLore, TtsHandle, TtsStatus } from '../../lib/tts';
+import { assetUrl } from '../../lib/assetUrl';
+import { duckBgm, unlockAudio } from '../../lib/audio';
+import AudioControls from './AudioControls';
 
 interface DrawScreenProps {
   collection: CollectionMap;
@@ -41,6 +44,7 @@ const DrawScreen: React.FC<DrawScreenProps> = ({
   const stopTts = useCallback(() => {
     handleRef.current?.stop();
     handleRef.current = null;
+    duckBgm(false);
   }, []);
 
   useEffect(() => () => stopTts(), [stopTts]);
@@ -70,15 +74,21 @@ const DrawScreen: React.FC<DrawScreenProps> = ({
 
     const handle = await speakLore({
       text,
-      onStatus: setTtsStatus,
+      onStatus: (s) => {
+        setTtsStatus(s);
+        if (s === 'playing' || s === 'loading') duckBgm(true);
+        if (s === 'ended' || s === 'idle' || s === 'error') duckBgm(false);
+      },
       onProgress: setProgress,
       onEnded: () => {
         setListenedComplete(true);
         setProgress(1);
+        duckBgm(false);
       },
       onError: (msg) => {
         setTtsError(msg);
         setShowReadFallback(true);
+        duckBgm(false);
       },
     });
     handleRef.current = handle;
@@ -110,7 +120,9 @@ const DrawScreen: React.FC<DrawScreenProps> = ({
 
   const handleThrow = () => {
     if (phase === 'spinning') return;
+    unlockAudio();
     stopTts();
+    duckBgm(false);
     setJustCollected(false);
     setDrawn(null);
     const face = pickRandomFaceWithCards();
@@ -147,7 +159,10 @@ const DrawScreen: React.FC<DrawScreenProps> = ({
           ← 返回
         </button>
         <h1>掷地球 · 抽卡</h1>
-        <span className="pill">收藏 {Object.keys(collection).length}</span>
+        <div className="screen-bar__right">
+          <AudioControls />
+          <span className="pill">收藏 {Object.keys(collection).length}</span>
+        </div>
       </header>
 
       <div className="draw-layout">
@@ -270,7 +285,7 @@ const DrawScreen: React.FC<DrawScreenProps> = ({
             </>
           ) : (
             <div className="draw-placeholder">
-              <img src="/brand/cartoon-earth.png" alt="卡通地球" />
+              <img src={assetUrl('/brand/cartoon-earth.png')} alt="卡通地球" />
               <p>转动卡通地球选区 → 抽取该地区百科卡</p>
             </div>
           )}

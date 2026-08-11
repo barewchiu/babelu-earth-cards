@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { ALL_CARDS, CompanionCard } from '../../data/catalog';
 import { CollectionMap } from '../../lib/collection';
+import AudioControls from './AudioControls';
 
 interface BattleScreenProps {
   collection: CollectionMap;
@@ -134,7 +135,10 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
           ← 返回
         </button>
         <h1>钻石对战 · 练习</h1>
-        <span className="pill">{turn === 'you' ? '你的回合' : '对手回合'}</span>
+        <div className="screen-bar__right">
+          <AudioControls />
+          <span className="pill">{turn === 'you' ? '你的回合' : '对手回合'}</span>
+        </div>
       </header>
 
       {demoNote && (

@@ -1,5 +1,6 @@
 import catalog from './cards.json';
 import { RegionFace, REGION_FACES, cardMatchesFace } from './regions';
+import { assetUrl } from '../lib/assetUrl';
 
 export interface CompanionCard {
   id: string;
@@ -12,7 +13,15 @@ export interface CompanionCard {
   diamonds: number;
 }
 
-export const ALL_CARDS: CompanionCard[] = catalog.cards as CompanionCard[];
+function withAssetUrls(card: CompanionCard): CompanionCard {
+  return {
+    ...card,
+    frontImage: assetUrl(card.frontImage),
+    backImage: card.backImage ? assetUrl(card.backImage) : null,
+  };
+}
+
+export const ALL_CARDS: CompanionCard[] = (catalog.cards as CompanionCard[]).map(withAssetUrls);
 export const TOTAL_CARDS = catalog.total;
 
 export function cardsForFace(face: RegionFace): CompanionCard[] {

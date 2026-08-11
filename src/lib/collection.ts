@@ -1,14 +1,35 @@
 import { CompanionCard } from '../data/catalog';
+import { assetUrl } from './assetUrl';
 
 const STORAGE_KEY = 'babelu-companion-collection-v1';
 
 export type CollectionMap = Record<string, CompanionCard>;
 
+/** Normalize stored paths so GitHub Pages PUBLIC_URL prefix stays correct. */
+function fixCardAssets(card: CompanionCard): CompanionCard {
+  const normalize = (p: string) => {
+    const marker = '/卡牌图片/';
+    const idx = p.indexOf(marker);
+    const relative = idx >= 0 ? p.slice(idx) : p.startsWith('/') ? p : `/${p}`;
+    return assetUrl(relative);
+  };
+  return {
+    ...card,
+    frontImage: normalize(card.frontImage),
+    backImage: card.backImage ? normalize(card.backImage) : null,
+  };
+}
+
 export function loadCollection(): CollectionMap {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return {};
-    return JSON.parse(raw) as CollectionMap;
+    const parsed = JSON.parse(raw) as CollectionMap;
+    const next: CollectionMap = {};
+    for (const [id, card] of Object.entries(parsed)) {
+      next[id] = fixCardAssets(card);
+    }
+    return next;
   } catch {
     return {};
   }

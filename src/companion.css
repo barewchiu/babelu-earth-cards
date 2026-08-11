@@ -46,6 +46,23 @@ button {
   margin-bottom: 1.25rem;
 }
 
+.screen-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.home-topbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.audio-mute {
+  font-size: 0.85rem;
+  padding: 0.3rem 0.7rem;
+}
+
 .screen-bar h1 {
   margin: 0;
   font-size: clamp(1.1rem, 2.5vw, 1.45rem);

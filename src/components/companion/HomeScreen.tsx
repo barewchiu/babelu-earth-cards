@@ -1,5 +1,8 @@
 import React from 'react';
 import { TOTAL_CARDS } from '../../data/catalog';
+import { assetUrl } from '../../lib/assetUrl';
+import { unlockAudio } from '../../lib/audio';
+import AudioControls from './AudioControls';
 
 interface HomeScreenProps {
   collectedCount: number;
@@ -14,10 +17,18 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
   onEnterCollection,
   onEnterBattle,
 }) => {
+  const enter = (fn: () => void) => {
+    unlockAudio();
+    fn();
+  };
+
   return (
     <div className="screen home-screen">
+      <div className="home-topbar">
+        <AudioControls />
+      </div>
       <div className="home-hero">
-        <img className="home-cover" src="/brand/cover.png" alt="Barew Earth Games" />
+        <img className="home-cover" src={assetUrl('/brand/cover.png')} alt="Barew Earth Games" />
         <div className="home-copy">
           <p className="eyebrow">Barew Earth · 数字伴侣</p>
           <h1>贝贝鲁地球百科</h1>
@@ -40,13 +51,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
             </div>
           </div>
           <div className="home-actions">
-            <button type="button" className="btn primary" onClick={onEnterDraw}>
+            <button type="button" className="btn primary" onClick={() => enter(onEnterDraw)}>
               掷地球抽卡
             </button>
-            <button type="button" className="btn secondary" onClick={onEnterCollection}>
+            <button type="button" className="btn secondary" onClick={() => enter(onEnterCollection)}>
               打开收藏盒
             </button>
-            <button type="button" className="btn secondary" onClick={onEnterBattle}>
+            <button type="button" className="btn secondary" onClick={() => enter(onEnterBattle)}>
               钻石对战练习
             </button>
           </div>
@@ -55,11 +66,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
 
       <div className="home-kit">
         <figure>
-          <img src="/brand/box.png" alt="实体收纳盒" />
+          <img src={assetUrl('/brand/box.png')} alt="实体收纳盒" />
           <figcaption>实体分槽收纳盒</figcaption>
         </figure>
         <figure>
-          <img src="/brand/cartoon-earth.png" alt="卡通地球" />
+          <img src={assetUrl('/brand/cartoon-earth.png')} alt="卡通地球" />
           <figcaption>卡通地球选区抽卡</figcaption>
         </figure>
       </div>

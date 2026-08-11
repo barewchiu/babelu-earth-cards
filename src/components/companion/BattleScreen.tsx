@@ -44,7 +44,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
   const [demoNote] = useState(Object.keys(collection).length < 16);
   const [rulesOpen, setRulesOpen] = useState(false);
 
-  const required = pileTop?.diamonds ?? 1;
+  const required = pileTop?.diamonds ?? 0;
+  const freeLead = !pileTop;
 
   useEffect(() => {
     if (!rulesOpen) return;
@@ -73,10 +74,11 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
 
   const rivalAutoPlay = (youNext: CompanionCard[], rivalNext: CompanionCard[], top: CompanionCard | null) => {
     if (winner) return;
-    const need = top?.diamonds ?? 1;
+    // null top = free lead (any card); otherwise must follow ≥ top diamonds
+    const need = top?.diamonds ?? 0;
     const playable = rivalNext
       .map((c, i) => ({ c, i }))
-      .filter(({ c }) => c.diamonds >= need)
+      .filter(({ c }) => (top ? c.diamonds >= need : true))
       .sort((a, b) => a.c.diamonds - b.c.diamonds);
 
     window.setTimeout(() => {
@@ -90,11 +92,11 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
           setTurn('you');
         }
       } else if (rivalNext.length > 0) {
-        // draw: cycle last card as "摸牌" feel — move first to end / skip
+        // Cannot follow → clear pile; you lead freely next
         const [drawn, ...rest] = rivalNext;
-        const hand = [...rest, drawn];
-        setRivalHand(hand);
-        pushLog(`对手无法跟牌，整理手牌后跳过`);
+        setRivalHand([...rest, drawn]);
+        setPileTop(null);
+        pushLog('对手无法跟牌，跳过 · 你可任意出牌');
         setTurn('you');
       } else {
         setTurn('you');
@@ -105,8 +107,9 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
   const playCard = (index: number) => {
     if (winner || turn !== 'you') return;
     const card = youHand[index];
-    if (card.diamonds < required) {
-      pushLog(`需要至少 ◆${required}，这张只有 ◆${card.diamonds}`);
+    // Free lead when pile is empty; otherwise must ≥ pile diamonds
+    if (pileTop && card.diamonds < pileTop.diamonds) {
+      pushLog(`需要至少 ◆${pileTop.diamonds}，这张只有 ◆${card.diamonds}`);
       return;
     }
     const youNext = youHand.filter((_, i) => i !== index);
@@ -122,10 +125,13 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
     if (winner || turn !== 'you') return;
     if (youHand.length === 0) return;
     const [first, ...rest] = youHand;
-    setYouHand([...rest, first]);
-    pushLog('你无法跟牌，跳过回合');
+    const youNext = [...rest, first];
+    setYouHand(youNext);
+    // Cannot follow → clear pile; rival leads freely
+    setPileTop(null);
+    pushLog('你无法跟牌，跳过 · 对手任意出牌');
     setTurn('rival');
-    rivalAutoPlay([...rest, first], rivalHand, pileTop);
+    rivalAutoPlay(youNext, rivalHand, null);
   };
 
   const restart = () => {
@@ -179,7 +185,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
                 <strong>出牌</strong>：轮到你时，打出钻石数 <strong>≥ 桌面牌</strong> 的卡（第一张可任意出）。钻石等级看卡面主图下方钻石条，最高 5 颗。
               </li>
               <li>
-                <strong>跟不上</strong>：点「无法跟牌 · 跳过」，换对手出牌。
+                <strong>跟不上</strong>：点「无法跟牌 · 跳过」。桌面清空，对方获得自由出牌权（可任意出一张），避免双方一直跳过卡住。
               </li>
               <li>
                 <strong>胜负</strong>：手牌清空即胜。实体完整规则里还有「讲解一张牌」等环节，练习版先略过。
@@ -223,7 +229,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
               </div>
             </div>
           ) : (
-            <div className="battle-pile empty">出第一张任意牌开始</div>
+            <div className="battle-pile empty">{freeLead ? '自由出牌 · 可出任意一张' : '出第一张任意牌开始'}</div>
           )}
           {winner && (
             <div className="battle-winner">
@@ -239,14 +245,15 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
           <h2>你 · {youHand.length} 张</h2>
           <div className="battle-hand">
             {youHand.map((card, index) => {
-              const canPlay = !winner && turn === 'you' && card.diamonds >= required;
+              const canPlay =
+                !winner && turn === 'you' && (freeLead || card.diamonds >= required);
               return (
                 <button
                   key={card.id + '-' + index}
                   type="button"
                   className={`battle-card ${canPlay ? 'can-play' : 'disabled'}`}
                   onClick={() => playCard(index)}
-                  disabled={!!winner || turn !== 'you'}
+                  disabled={!!winner || turn !== 'you' || (!freeLead && card.diamonds < required)}
                 >
                   <img src={card.frontImage} alt={card.name} />
                   <span className="battle-card__name">{card.name}</span>
@@ -259,7 +266,8 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
               type="button"
               className="btn secondary"
               onClick={skipDraw}
-              disabled={!!winner || turn !== 'you'}
+              disabled={!!winner || turn !== 'you' || freeLead}
+              title={freeLead ? '当前可任意出牌，无需跳过' : undefined}
             >
               无法跟牌 · 跳过
             </button>

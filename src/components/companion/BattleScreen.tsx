@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ALL_CARDS, CompanionCard } from '../../data/catalog';
 import { CollectionMap } from '../../lib/collection';
 import AudioControls from './AudioControls';
@@ -42,8 +42,18 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
   const [log, setLog] = useState<string[]>(['钻石对战练习开始 · 需打出 ≥ 桌面钻石数的牌']);
   const [winner, setWinner] = useState<Side | null>(null);
   const [demoNote] = useState(Object.keys(collection).length < 16);
+  const [rulesOpen, setRulesOpen] = useState(false);
 
   const required = pileTop?.diamonds ?? 1;
+
+  useEffect(() => {
+    if (!rulesOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setRulesOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [rulesOpen]);
 
   const pushLog = (line: string) => setLog((prev) => [line, ...prev].slice(0, 6));
 
@@ -136,10 +146,54 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
         </button>
         <h1>钻石对战 · 练习</h1>
         <div className="screen-bar__right">
+          <button type="button" className="btn ghost" onClick={() => setRulesOpen(true)}>
+            规则
+          </button>
           <AudioControls />
           <span className="pill">{turn === 'you' ? '你的回合' : '对手回合'}</span>
         </div>
       </header>
+
+      {rulesOpen && (
+        <div
+          className="rules-backdrop"
+          role="presentation"
+          onClick={() => setRulesOpen(false)}
+        >
+          <div
+            className="rules-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="battle-rules-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="battle-rules-title">钻石对战 · 练习规则</h2>
+            <ol className="rules-list">
+              <li>
+                <strong>目标</strong>：先把手牌全部打出的一方获胜。
+              </li>
+              <li>
+                <strong>开局</strong>：你和对手各 8 张牌。收藏不足时，系统会补练习牌。
+              </li>
+              <li>
+                <strong>出牌</strong>：轮到你时，打出钻石数 <strong>≥ 桌面牌</strong> 的卡（第一张可任意出）。
+              </li>
+              <li>
+                <strong>跟不上</strong>：点「无法跟牌 · 跳过」，换对手出牌。
+              </li>
+              <li>
+                <strong>胜负</strong>：手牌清空即胜。实体完整规则里还有「讲解一张牌」等环节，练习版先略过。
+              </li>
+              <li>
+                <strong>说明</strong>：本页是简化钻石比拼；知识链、亲子同屏等在后续版本。
+              </li>
+            </ol>
+            <button type="button" className="btn primary rules-modal__ok" onClick={() => setRulesOpen(false)}>
+              知道了
+            </button>
+          </div>
+        </div>
+      )}
 
       {demoNote && (
         <p className="battle-note">

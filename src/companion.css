@@ -783,6 +783,58 @@ button {
   opacity: 0.55;
 }
 
+.rules-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(5, 10, 22, 0.72);
+  backdrop-filter: blur(4px);
+}
+
+.rules-modal {
+  width: min(100%, 420px);
+  max-height: min(82vh, 560px);
+  overflow: auto;
+  padding: 1.35rem 1.4rem 1.25rem;
+  border-radius: 18px;
+  border: 1px solid rgba(198, 161, 91, 0.35);
+  background:
+    linear-gradient(160deg, rgba(42, 32, 18, 0.96), rgba(16, 22, 36, 0.98));
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  color: var(--parchment);
+}
+
+.rules-modal h2 {
+  margin: 0 0 0.85rem;
+  font-size: 1.2rem;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+.rules-list {
+  margin: 0 0 1.15rem;
+  padding-left: 1.15rem;
+  line-height: 1.55;
+  font-size: 0.92rem;
+  opacity: 0.92;
+}
+
+.rules-list li + li {
+  margin-top: 0.55rem;
+}
+
+.rules-list strong {
+  color: rgba(243, 230, 207, 0.95);
+}
+
+.rules-modal__ok {
+  width: 100%;
+}
+
 @media (max-width: 900px) {
   .home-hero,
   .draw-layout,

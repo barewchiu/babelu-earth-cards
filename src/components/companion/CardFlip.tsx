@@ -48,7 +48,7 @@ const CardFlip: React.FC<CardFlipProps> = ({ card, large, onFlipChange }) => {
             </span>
             <span className="card-flip__diamonds" aria-label={`${card.diamonds} 颗钻石`}>
               {'◆'.repeat(card.diamonds)}
-              <span className="dim">{'◇'.repeat(4 - card.diamonds)}</span>
+              <span className="dim">{'◇'.repeat(Math.max(0, 5 - card.diamonds))}</span>
             </span>
           </div>
         </button>

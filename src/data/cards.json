@@ -34,7 +34,7 @@
       "subcategory": "筑",
       "frontImage": "/卡牌图片/0013太平洋岛-宗教-筑-南马都尔遗迹（正）.jpg",
       "backImage": "/卡牌图片/0013太平洋岛-宗教-筑-南马都尔遗迹（反）.jpg",
-      "diamonds": 3
+      "diamonds": 5
     },
     {
       "id": "0036",
@@ -44,7 +44,7 @@
       "subcategory": "水生",
       "frontImage": "/卡牌图片/0036西欧-生物-水生-抹香鲸（正）.jpg",
       "backImage": "/卡牌图片/0036西欧-生物-水生-抹香鲸（反）.jpg",
-      "diamonds": 2
+      "diamonds": 1
     },
     {
       "id": "0037",
@@ -54,7 +54,7 @@
       "subcategory": "水生",
       "frontImage": "/卡牌图片/0037非洲南-生物-水生-蓝鲸（正）.jpg",
       "backImage": "/卡牌图片/0037非洲南-生物-水生-蓝鲸（反）.jpg",
-      "diamonds": 4
+      "diamonds": 2
     },
     {
       "id": "0050",
@@ -64,7 +64,7 @@
       "subcategory": "经典",
       "frontImage": "/卡牌图片/0050东欧-财宝-经典-伊利亚特（正）.jpg",
       "backImage": "/卡牌图片/0050东欧-财宝-经典-伊利亚特（反）.jpg",
-      "diamonds": 3
+      "diamonds": 2
     },
     {
       "id": "0079",
@@ -74,7 +74,7 @@
       "subcategory": "筑",
       "frontImage": "/卡牌图片/0079非洲北-宗教-筑-吉萨金字塔（正）.jpg",
       "backImage": "/卡牌图片/0079非洲北-宗教-筑-吉萨金字塔（反）.jpg",
-      "diamonds": 4
+      "diamonds": 1
     },
     {
       "id": "0093",
@@ -84,7 +84,7 @@
       "subcategory": "迹",
       "frontImage": "/卡牌图片/0093北美东-考古-迹-兰塞奥兹牧草地（正）_01.jpg",
       "backImage": "/卡牌图片/0093北美东-考古-迹-兰塞奥兹牧草地（反）_01.jpg",
-      "diamonds": 2
+      "diamonds": 5
     },
     {
       "id": "0094",
@@ -94,7 +94,7 @@
       "subcategory": "遗",
       "frontImage": "/卡牌图片/0094北美东-考古-遗-白银头盔（正）_01.jpg",
       "backImage": "/卡牌图片/0094北美东-考古-遗-白银头盔（反）_01.jpg",
-      "diamonds": 3
+      "diamonds": 5
     },
     {
       "id": "0095",
@@ -114,7 +114,7 @@
       "subcategory": "遗",
       "frontImage": "/卡牌图片/0096北美东-考古-遗-维京海盗的铁钉（正）_01.jpg",
       "backImage": "/卡牌图片/0096北美东-考古-遗-维京海盗的铁钉（反）_01.jpg",
-      "diamonds": 3
+      "diamonds": 4
     },
     {
       "id": "0107",
@@ -124,7 +124,7 @@
       "subcategory": "艺术",
       "frontImage": "/卡牌图片/0107东欧-美术-艺术-巴别塔（正）.jpg",
       "backImage": "/卡牌图片/0107东欧-美术-艺术-巴别塔（反）.jpg",
-      "diamonds": 3
+      "diamonds": 1
     },
     {
       "id": "0109",
@@ -134,7 +134,7 @@
       "subcategory": "艺术",
       "frontImage": "/卡牌图片/0109东欧-美术-艺术-通天塔（正）.jpg",
       "backImage": "/卡牌图片/0109东欧-美术-艺术-通天塔（反）.jpg",
-      "diamonds": 3
+      "diamonds": 1
     },
     {
       "id": "0125",
@@ -194,7 +194,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0143太平洋岛-地理-地-塔希提岛（正）.jpg",
       "backImage": "/卡牌图片/0143太平洋岛-地理-地-塔希提岛（反）.jpg",
-      "diamonds": 2
+      "diamonds": 4
     },
     {
       "id": "0144",
@@ -204,7 +204,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0144太平洋岛-地理-地-复活节岛（正）.jpg",
       "backImage": "/卡牌图片/0144太平洋岛-地理-地-复活节岛（反）.jpg",
-      "diamonds": 4
+      "diamonds": 5
     },
     {
       "id": "0146",
@@ -214,7 +214,7 @@
       "subcategory": "筑",
       "frontImage": "/卡牌图片/0146太平洋岛-宗教-筑-阿基维祭坛的摩艾（正）.jpg",
       "backImage": "/卡牌图片/0146太平洋岛-宗教-筑-阿基维祭坛的摩艾（反）.jpg",
-      "diamonds": 3
+      "diamonds": 5
     },
     {
       "id": "0147",
@@ -224,7 +224,7 @@
       "subcategory": "筑",
       "frontImage": "/卡牌图片/0147太平洋岛-宗教-筑-霍图∙玛图阿王的摩艾（正）.jpg",
       "backImage": "/卡牌图片/0147太平洋岛-宗教-筑-霍图∙玛图阿王的摩艾（反）.jpg",
-      "diamonds": 3
+      "diamonds": 4
     },
     {
       "id": "0148",
@@ -234,7 +234,7 @@
       "subcategory": "筑",
       "frontImage": "/卡牌图片/0148太平洋岛-宗教-筑-东加历奇的摩艾（正）.jpg",
       "backImage": "/卡牌图片/0148太平洋岛-宗教-筑-东加历奇的摩艾（反）.jpg",
-      "diamonds": 3
+      "diamonds": 4
     },
     {
       "id": "0151",
@@ -244,7 +244,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0151太平洋岛-地理-地-太平洋（正）.jpg",
       "backImage": "/卡牌图片/0151太平洋岛-地理-地-太平洋（反）.jpg",
-      "diamonds": 2
+      "diamonds": 5
     },
     {
       "id": "0152",
@@ -254,7 +254,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0152东南亚-地理-地-宿雾岛（正）.jpg",
       "backImage": "/卡牌图片/0152东南亚-地理-地-宿雾岛（反）.jpg",
-      "diamonds": 2
+      "diamonds": 5
     },
     {
       "id": "0171",
@@ -264,7 +264,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0171太平洋岛-地理-地-波纳佩岛（正）.jpg",
       "backImage": "/卡牌图片/0171太平洋岛-地理-地-波纳佩岛（反）.jpg",
-      "diamonds": 2
+      "diamonds": 3
     },
     {
       "id": "0174",
@@ -274,7 +274,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0174南美-地理-地-安赫尔瀑布（正）.jpg",
       "backImage": "/卡牌图片/0174南美-地理-地-安赫尔瀑布（反）.jpg",
-      "diamonds": 2
+      "diamonds": 3
     },
     {
       "id": "0178",
@@ -284,7 +284,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0178北美西-地理-地-马尾瀑布（正）.jpg",
       "backImage": "/卡牌图片/0178北美西-地理-地-马尾瀑布（反）.jpg",
-      "diamonds": 2
+      "diamonds": 5
     },
     {
       "id": "0179",
@@ -294,7 +294,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0179北美西-地理-地-大平顶山（正）.jpg",
       "backImage": "/卡牌图片/0179北美西-地理-地-大平顶山（反）.jpg",
-      "diamonds": 2
+      "diamonds": 4
     },
     {
       "id": "0180",
@@ -304,7 +304,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0180北美西-地理-地-巴提（正）.jpg",
       "backImage": "/卡牌图片/0180北美西-地理-地-巴提（反）.jpg",
-      "diamonds": 2
+      "diamonds": 4
     },
     {
       "id": "0181",
@@ -314,7 +314,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0181北美西-地理-地-北美大平原（正）.jpg",
       "backImage": "/卡牌图片/0181北美西-地理-地-北美大平原（反）.jpg",
-      "diamonds": 2
+      "diamonds": 4
     },
     {
       "id": "0183",
@@ -324,7 +324,7 @@
       "subcategory": "鸟",
       "frontImage": "/卡牌图片/0183南美-生物-鸟-黄玉蜂鸟（正）.jpg",
       "backImage": "/卡牌图片/0183南美-生物-鸟-黄玉蜂鸟（反）.jpg",
-      "diamonds": 2
+      "diamonds": 3
     },
     {
       "id": "0184",
@@ -334,7 +334,7 @@
       "subcategory": "鸟",
       "frontImage": "/卡牌图片/0184南美-生物-鸟-侏儒蜂鸟（正）.jpg",
       "backImage": "/卡牌图片/0184南美-生物-鸟-侏儒蜂鸟（反）.jpg",
-      "diamonds": 2
+      "diamonds": 5
     },
     {
       "id": "0190",
@@ -344,7 +344,7 @@
       "subcategory": "鸟",
       "frontImage": "/卡牌图片/0190南美-生物-鸟-鹰头鹦鹉（正）.jpg",
       "backImage": "/卡牌图片/0190南美-生物-鸟-鹰头鹦鹉（反）.jpg",
-      "diamonds": 2
+      "diamonds": 1
     },
     {
       "id": "0192",
@@ -354,7 +354,7 @@
       "subcategory": "虫",
       "frontImage": "/卡牌图片/0192南美-生物-虫-海神大兜（正）.jpg",
       "backImage": "/卡牌图片/0192南美-生物-虫-海神大兜（反）.jpg",
-      "diamonds": 2
+      "diamonds": 4
     },
     {
       "id": "0193",
@@ -364,7 +364,7 @@
       "subcategory": "虫",
       "frontImage": "/卡牌图片/0193南美-生物-虫-竖角兜（正）.jpg",
       "backImage": "/卡牌图片/0193南美-生物-虫-竖角兜（反）.jpg",
-      "diamonds": 2
+      "diamonds": 1
     },
     {
       "id": "0195",
@@ -374,7 +374,7 @@
       "subcategory": "虫",
       "frontImage": "/卡牌图片/0195南美-生物-虫-弧曲蚬蝶（正）.jpg",
       "backImage": "/卡牌图片/0195南美-生物-虫-弧曲蚬蝶（反）.jpg",
-      "diamonds": 2
+      "diamonds": 3
     },
     {
       "id": "0196",
@@ -384,7 +384,7 @@
       "subcategory": "虫",
       "frontImage": "/卡牌图片/0196南美-生物-虫-珠带摩尔佛蝶（正）.jpg",
       "backImage": "/卡牌图片/0196南美-生物-虫-珠带摩尔佛蝶（反）.jpg",
-      "diamonds": 2
+      "diamonds": 5
     },
     {
       "id": "0199",
@@ -394,7 +394,7 @@
       "subcategory": "小",
       "frontImage": "/卡牌图片/0199南美-生物-小-塔马林猴（正）.jpg",
       "backImage": "/卡牌图片/0199南美-生物-小-塔马林猴（反）.jpg",
-      "diamonds": 2
+      "diamonds": 5
     },
     {
       "id": "0207",
@@ -414,7 +414,7 @@
       "subcategory": "大",
       "frontImage": "/卡牌图片/0213南亚-生物-大-白虎（正）.jpg",
       "backImage": "/卡牌图片/0213南亚-生物-大-白虎（反）.jpg",
-      "diamonds": 4
+      "diamonds": 5
     },
     {
       "id": "0214",
@@ -424,7 +424,7 @@
       "subcategory": "鸟",
       "frontImage": "/卡牌图片/0214南美-生物-鸟-王鹫（正）.jpg",
       "backImage": "/卡牌图片/0214南美-生物-鸟-王鹫（反）.jpg",
-      "diamonds": 2
+      "diamonds": 5
     },
     {
       "id": "0218",
@@ -434,7 +434,7 @@
       "subcategory": "鸟",
       "frontImage": "/卡牌图片/0218非洲南-生物-鸟-渡渡鸟（正）.jpg",
       "backImage": "/卡牌图片/0218非洲南-生物-鸟-渡渡鸟（反）.jpg",
-      "diamonds": 2
+      "diamonds": 5
     },
     {
       "id": "0220",
@@ -444,7 +444,7 @@
       "subcategory": "经典",
       "frontImage": "/卡牌图片/0220东亚-财宝-经典-三国志演义（正）.jpg",
       "backImage": "/卡牌图片/0220东亚-财宝-经典-三国志演义（反）.jpg",
-      "diamonds": 3
+      "diamonds": 2
     },
     {
       "id": "0251",
@@ -454,7 +454,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0251东亚-地理-地-长江（正）.jpg",
       "backImage": "/卡牌图片/0251东亚-地理-地-长江（反）.jpg",
-      "diamonds": 2
+      "diamonds": 4
     },
     {
       "id": "0256",
@@ -464,7 +464,7 @@
       "subcategory": "经典",
       "frontImage": "/卡牌图片/0256东亚-财宝-经典-西游记（正）.jpg",
       "backImage": "/卡牌图片/0256东亚-财宝-经典-西游记（反）.jpg",
-      "diamonds": 3
+      "diamonds": 4
     },
     {
       "id": "0263",
@@ -474,7 +474,7 @@
       "subcategory": "经典",
       "frontImage": "/卡牌图片/0263东亚-财宝-经典-水浒传（正）.jpg",
       "backImage": "/卡牌图片/0263东亚-财宝-经典-水浒传（反）.jpg",
-      "diamonds": 3
+      "diamonds": 4
     },
     {
       "id": "0268",
@@ -484,7 +484,7 @@
       "subcategory": "迹",
       "frontImage": "/卡牌图片/0268东亚-考古-迹-万里长城（正）_01.jpg",
       "backImage": "/卡牌图片/0268东亚-考古-迹-万里长城（反）.jpg",
-      "diamonds": 4
+      "diamonds": 5
     },
     {
       "id": "0270",
@@ -494,7 +494,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0270东亚-地理-地-泰山（正）_01.jpg",
       "backImage": "/卡牌图片/0270东亚-地理-地-泰山（反）_01.jpg",
-      "diamonds": 2
+      "diamonds": 4
     },
     {
       "id": "0280",
@@ -504,7 +504,7 @@
       "subcategory": "地",
       "frontImage": "/卡牌图片/0280东亚-地理-地-富士山（正）.jpg",
       "backImage": "/卡牌图片/0280东亚-地理-地-富士山（反）.jpg",
-      "diamonds": 2
+      "diamonds": 5
     }
   ],
   "demo": true

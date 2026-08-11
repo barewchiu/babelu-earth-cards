@@ -176,7 +176,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
                 <strong>开局</strong>：你和对手各 8 张牌。收藏不足时，系统会补练习牌。
               </li>
               <li>
-                <strong>出牌</strong>：轮到你时，打出钻石数 <strong>≥ 桌面牌</strong> 的卡（第一张可任意出）。
+                <strong>出牌</strong>：轮到你时，打出钻石数 <strong>≥ 桌面牌</strong> 的卡（第一张可任意出）。钻石等级看卡面主图下方钻石条，最高 5 颗。
               </li>
               <li>
                 <strong>跟不上</strong>：点「无法跟牌 · 跳过」，换对手出牌。
@@ -249,7 +249,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
                   disabled={!!winner || turn !== 'you'}
                 >
                   <img src={card.frontImage} alt={card.name} />
-                  <span className="battle-card__diamonds">{'◆'.repeat(card.diamonds)}</span>
                   <span className="battle-card__name">{card.name}</span>
                 </button>
               );

@@ -20,7 +20,7 @@ function clamp01(n: number) {
 
 /** Prefer Doubao via /api/tts; fall back to browser speechSynthesis. */
 export async function speakLore(options: SpeakOptions): Promise<TtsHandle> {
-  const { text, onStatus, onProgress, onEnded, onError } = options;
+  const { text, onStatus, onProgress, onEnded } = options;
   onStatus?.('loading');
 
   try {

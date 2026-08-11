@@ -752,6 +752,33 @@ button {
   color: var(--gold);
 }
 
+.battle-spoils {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  max-width: 220px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: rgba(243, 230, 207, 0.95);
+}
+
+.battle-spoils img {
+  width: 120px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.battle-spoils--lose img {
+  filter: grayscale(0.35) brightness(0.85);
+}
+
+.battle-spoils p,
+.battle-spoils__note {
+  margin: 0;
+  line-height: 1.4;
+}
+
 .battle-actions {
   margin-top: 0.75rem;
   display: flex;

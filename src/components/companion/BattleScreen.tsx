@@ -1,14 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ALL_CARDS, CompanionCard } from '../../data/catalog';
-import { CollectionMap } from '../../lib/collection';
+import { CollectionMap, collectCard, removeCard } from '../../lib/collection';
 import AudioControls from './AudioControls';
 
 interface BattleScreenProps {
   collection: CollectionMap;
+  onCollectionChange: (next: CollectionMap) => void;
   onBack: () => void;
 }
 
 type Side = 'you' | 'rival';
+
+type Spoils =
+  | { kind: 'gain'; card: CompanionCard; alreadyOwned: boolean }
+  | { kind: 'lose'; card: CompanionCard }
+  | { kind: 'lose-empty' }
+  | null;
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -33,7 +40,12 @@ function dealHands(collection: CollectionMap): { you: CompanionCard[]; rival: Co
   };
 }
 
-const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
+function pickRandom<T>(arr: T[]): T | null {
+  if (arr.length === 0) return null;
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onCollectionChange, onBack }) => {
   const initial = useMemo(() => dealHands(collection), [collection]);
   const [youHand, setYouHand] = useState(initial.you);
   const [rivalHand, setRivalHand] = useState(initial.rival);
@@ -41,8 +53,15 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
   const [turn, setTurn] = useState<Side>('you');
   const [log, setLog] = useState<string[]>(['钻石对战练习开始 · 需打出 ≥ 桌面钻石数的牌']);
   const [winner, setWinner] = useState<Side | null>(null);
+  const [spoils, setSpoils] = useState<Spoils>(null);
   const [demoNote] = useState(Object.keys(collection).length < 16);
   const [rulesOpen, setRulesOpen] = useState(false);
+  const settledRef = useRef(false);
+  const collectionRef = useRef(collection);
+
+  useEffect(() => {
+    collectionRef.current = collection;
+  }, [collection]);
 
   const required = pileTop?.diamonds ?? 0;
   const freeLead = !pileTop;
@@ -56,17 +75,50 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
     return () => window.removeEventListener('keydown', onKey);
   }, [rulesOpen]);
 
-  const pushLog = (line: string) => setLog((prev) => [line, ...prev].slice(0, 6));
+  const pushLog = (line: string) => setLog((prev) => [line, ...prev].slice(0, 8));
+
+  const settleSpoils = (side: Side, rivalRemaining: CompanionCard[]) => {
+    if (settledRef.current) return;
+    settledRef.current = true;
+    const owned = collectionRef.current;
+
+    if (side === 'you') {
+      const prize = pickRandom(rivalRemaining);
+      if (!prize) {
+        pushLog('获胜，但对方已无手牌可夺。');
+        return;
+      }
+      const alreadyOwned = Boolean(owned[prize.id]);
+      if (!alreadyOwned) {
+        onCollectionChange(collectCard(owned, prize));
+        pushLog(`胜利奖励：夺得「${prize.name}」，已放入收藏盒`);
+      } else {
+        pushLog(`胜利奖励：夺得「${prize.name}」（收藏盒里已有）`);
+      }
+      setSpoils({ kind: 'gain', card: prize, alreadyOwned });
+      return;
+    }
+
+    const lost = pickRandom(Object.values(owned));
+    if (!lost) {
+      pushLog('落败，但收藏盒为空，未丢失卡牌');
+      setSpoils({ kind: 'lose-empty' });
+      return;
+    }
+    onCollectionChange(removeCard(owned, lost.id));
+    pushLog(`落败惩罚：失去收藏「${lost.name}」`);
+    setSpoils({ kind: 'lose', card: lost });
+  };
 
   const finishIfNeeded = (youNext: CompanionCard[], rivalNext: CompanionCard[]) => {
     if (youNext.length === 0) {
       setWinner('you');
-      pushLog('你清空手牌，获胜！可从对方手牌中选一张讲解（实体规则）。');
+      settleSpoils('you', rivalNext);
       return true;
     }
     if (rivalNext.length === 0) {
       setWinner('rival');
-      pushLog('对手清空手牌。请讲解一张你的牌（实体规则）。');
+      settleSpoils('rival', rivalNext);
       return true;
     }
     return false;
@@ -74,7 +126,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
 
   const rivalAutoPlay = (youNext: CompanionCard[], rivalNext: CompanionCard[], top: CompanionCard | null) => {
     if (winner) return;
-    // null top = free lead (any card); otherwise must follow ≥ top diamonds
     const need = top?.diamonds ?? 0;
     const playable = rivalNext
       .map((c, i) => ({ c, i }))
@@ -92,7 +143,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
           setTurn('you');
         }
       } else if (rivalNext.length > 0) {
-        // Cannot follow → clear pile; you lead freely next
         const [drawn, ...rest] = rivalNext;
         setRivalHand([...rest, drawn]);
         setPileTop(null);
@@ -107,7 +157,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
   const playCard = (index: number) => {
     if (winner || turn !== 'you') return;
     const card = youHand[index];
-    // Free lead when pile is empty; otherwise must ≥ pile diamonds
     if (pileTop && card.diamonds < pileTop.diamonds) {
       pushLog(`需要至少 ◆${pileTop.diamonds}，这张只有 ◆${card.diamonds}`);
       return;
@@ -127,7 +176,6 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
     const [first, ...rest] = youHand;
     const youNext = [...rest, first];
     setYouHand(youNext);
-    // Cannot follow → clear pile; rival leads freely
     setPileTop(null);
     pushLog('你无法跟牌，跳过 · 对手任意出牌');
     setTurn('rival');
@@ -135,12 +183,14 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
   };
 
   const restart = () => {
-    const next = dealHands(collection);
+    const next = dealHands(collectionRef.current);
+    settledRef.current = false;
     setYouHand(next.you);
     setRivalHand(next.rival);
     setPileTop(null);
     setTurn('you');
     setWinner(null);
+    setSpoils(null);
     setLog(['新的一局 · 钻石对战练习']);
   };
 
@@ -188,7 +238,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
                 <strong>跟不上</strong>：点「无法跟牌 · 跳过」。桌面清空，对方获得自由出牌权（可任意出一张），避免双方一直跳过卡住。
               </li>
               <li>
-                <strong>胜负</strong>：手牌清空即胜。实体完整规则里还有「讲解一张牌」等环节，练习版先略过。
+                <strong>胜负奖励</strong>：你获胜时，随机夺得对手手牌 1 张并放入收藏盒；你落败时，随机失去收藏盒中 1 张。
               </li>
               <li>
                 <strong>说明</strong>：本页是简化钻石比拼；知识链、亲子同屏等在后续版本。
@@ -233,7 +283,24 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
           )}
           {winner && (
             <div className="battle-winner">
-              {winner === 'you' ? '你赢了！' : '对手获胜'}
+              <strong>{winner === 'you' ? '你赢了！' : '对手获胜'}</strong>
+              {spoils?.kind === 'gain' && (
+                <div className="battle-spoils">
+                  <img src={spoils.card.frontImage} alt={spoils.card.name} />
+                  <p>
+                    {spoils.alreadyOwned
+                      ? `夺得「${spoils.card.name}」（收藏盒已有）`
+                      : `夺得「${spoils.card.name}」，已放入收藏盒`}
+                  </p>
+                </div>
+              )}
+              {spoils?.kind === 'lose' && (
+                <div className="battle-spoils battle-spoils--lose">
+                  <img src={spoils.card.frontImage} alt={spoils.card.name} />
+                  <p>失去收藏「{spoils.card.name}」</p>
+                </div>
+              )}
+              {spoils?.kind === 'lose-empty' && <p className="battle-spoils__note">收藏盒为空，未丢失卡牌</p>}
               <button type="button" className="btn primary" onClick={restart}>
                 再来一局
               </button>
@@ -284,7 +351,7 @@ const BattleScreen: React.FC<BattleScreenProps> = ({ collection, onBack }) => {
         ))}
       </ul>
 
-      <p className="battle-roadmap">后续迭代：知识链关联出牌 · 亲子双人同屏 · 胜负讲解奖励</p>
+      <p className="battle-roadmap">后续迭代：知识链关联出牌 · 亲子双人同屏</p>
     </div>
   );
 };

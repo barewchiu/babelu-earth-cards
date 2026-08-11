@@ -44,3 +44,11 @@ export function collectCard(collection: CollectionMap, card: CompanionCard): Col
   saveCollection(next);
   return next;
 }
+
+export function removeCard(collection: CollectionMap, cardId: string): CollectionMap {
+  if (!collection[cardId]) return collection;
+  const next = { ...collection };
+  delete next[cardId];
+  saveCollection(next);
+  return next;
+}

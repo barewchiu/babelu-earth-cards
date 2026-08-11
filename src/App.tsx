@@ -50,7 +50,11 @@ function App() {
 
   if (view === 'battle') {
     return (
-      <BattleScreen collection={collection} onBack={() => setView('home')} />
+      <BattleScreen
+        collection={collection}
+        onCollectionChange={setCollection}
+        onBack={() => setView('home')}
+      />
     );
   }
 

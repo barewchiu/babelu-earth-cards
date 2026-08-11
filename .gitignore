@@ -21,3 +21,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# OCR / local ML assets (large)
+chi_sim.traineddata
+
+# Unused heavy public assets (companion uses cartoon-earth brand)
+/public/earth-textures/
+/public/maps/
+
+# OCR intermediate progress
+src/data/lore.ocr-progress.json

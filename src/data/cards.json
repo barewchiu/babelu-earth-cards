@@ -1,0 +1,271 @@
+{
+  "generatedAt": "2026-08-11T11:43:49.704Z",
+  "total": 24,
+  "withBack": 24,
+  "regions": {
+    "太平洋岛": 13,
+    "西欧": 34,
+    "非洲南": 7,
+    "东欧": 7,
+    "非洲北": 2,
+    "北美东": 6,
+    "南亚": 12,
+    "东南亚": 5,
+    "澳洲": 7,
+    "南美": 12,
+    "北美西": 8,
+    "东亚": 86,
+    "西亚": 12,
+    "中亚": 22,
+    "加勒比": 6,
+    "北欧": 14,
+    "非洲东": 7,
+    "非洲西": 4,
+    "远东": 2,
+    "欧亚北": 3,
+    "大洋洲": 1
+  },
+  "cards": [
+    {
+      "id": "0013",
+      "name": "南马都尔遗迹",
+      "region": "太平洋岛",
+      "category": "宗教",
+      "subcategory": "筑",
+      "frontImage": "/卡牌图片/0013太平洋岛-宗教-筑-南马都尔遗迹（正）.jpg",
+      "backImage": "/卡牌图片/0013太平洋岛-宗教-筑-南马都尔遗迹（反）.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0036",
+      "name": "抹香鲸",
+      "region": "西欧",
+      "category": "生物",
+      "subcategory": "水生",
+      "frontImage": "/卡牌图片/0036西欧-生物-水生-抹香鲸（正）.jpg",
+      "backImage": "/卡牌图片/0036西欧-生物-水生-抹香鲸（反）.jpg",
+      "diamonds": 2
+    },
+    {
+      "id": "0037",
+      "name": "蓝鲸",
+      "region": "非洲南",
+      "category": "生物",
+      "subcategory": "水生",
+      "frontImage": "/卡牌图片/0037非洲南-生物-水生-蓝鲸（正）.jpg",
+      "backImage": "/卡牌图片/0037非洲南-生物-水生-蓝鲸（反）.jpg",
+      "diamonds": 4
+    },
+    {
+      "id": "0050",
+      "name": "伊利亚特",
+      "region": "东欧",
+      "category": "财宝",
+      "subcategory": "经典",
+      "frontImage": "/卡牌图片/0050东欧-财宝-经典-伊利亚特（正）.jpg",
+      "backImage": "/卡牌图片/0050东欧-财宝-经典-伊利亚特（反）.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0079",
+      "name": "吉萨金字塔",
+      "region": "非洲北",
+      "category": "宗教",
+      "subcategory": "筑",
+      "frontImage": "/卡牌图片/0079非洲北-宗教-筑-吉萨金字塔（正）.jpg",
+      "backImage": "/卡牌图片/0079非洲北-宗教-筑-吉萨金字塔（反）.jpg",
+      "diamonds": 4
+    },
+    {
+      "id": "0093",
+      "name": "兰塞奥兹牧草地",
+      "region": "北美东",
+      "category": "考古",
+      "subcategory": "迹",
+      "frontImage": "/卡牌图片/0093北美东-考古-迹-兰塞奥兹牧草地（正）_01.jpg",
+      "backImage": "/卡牌图片/0093北美东-考古-迹-兰塞奥兹牧草地（反）_01.jpg",
+      "diamonds": 2
+    },
+    {
+      "id": "0094",
+      "name": "白银头盔",
+      "region": "北美东",
+      "category": "考古",
+      "subcategory": "遗",
+      "frontImage": "/卡牌图片/0094北美东-考古-遗-白银头盔（正）_01.jpg",
+      "backImage": "/卡牌图片/0094北美东-考古-遗-白银头盔（反）_01.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0095",
+      "name": "维京人的线轴",
+      "region": "北美东",
+      "category": "考古",
+      "subcategory": "遗",
+      "frontImage": "/卡牌图片/0095北美东-考古-遗-维京人的线轴（正）_01.jpg",
+      "backImage": "/卡牌图片/0095北美东-考古-遗-维京人的线轴（反）_01.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0096",
+      "name": "维京海盗的铁钉",
+      "region": "北美东",
+      "category": "考古",
+      "subcategory": "遗",
+      "frontImage": "/卡牌图片/0096北美东-考古-遗-维京海盗的铁钉（正）_01.jpg",
+      "backImage": "/卡牌图片/0096北美东-考古-遗-维京海盗的铁钉（反）_01.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0107",
+      "name": "巴别塔",
+      "region": "东欧",
+      "category": "美术",
+      "subcategory": "艺术",
+      "frontImage": "/卡牌图片/0107东欧-美术-艺术-巴别塔（正）.jpg",
+      "backImage": "/卡牌图片/0107东欧-美术-艺术-巴别塔（反）.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0109",
+      "name": "通天塔",
+      "region": "东欧",
+      "category": "美术",
+      "subcategory": "艺术",
+      "frontImage": "/卡牌图片/0109东欧-美术-艺术-通天塔（正）.jpg",
+      "backImage": "/卡牌图片/0109东欧-美术-艺术-通天塔（反）.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0125",
+      "name": "梵天像",
+      "region": "南亚",
+      "category": "宗教",
+      "subcategory": "遗",
+      "frontImage": "/卡牌图片/0125南亚-宗教-遗-梵天像（正）_01.jpg",
+      "backImage": "/卡牌图片/0125南亚-宗教-遗-梵天像（反）_01.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0136",
+      "name": "帝汶岛",
+      "region": "东南亚",
+      "category": "地理",
+      "subcategory": "地",
+      "frontImage": "/卡牌图片/0136东南亚-地理-地-帝汶岛（正）.jpg",
+      "backImage": "/卡牌图片/0136东南亚-地理-地-帝汶岛（反）.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0138",
+      "name": "帕劳群岛",
+      "region": "东南亚",
+      "category": "地理",
+      "subcategory": "地",
+      "frontImage": "/卡牌图片/0138东南亚-地理-地-帕劳群岛（正）.jpg",
+      "backImage": "/卡牌图片/0138东南亚-地理-地-帕劳群岛（反）.jpg",
+      "diamonds": 2
+    },
+    {
+      "id": "0139",
+      "name": "塔斯马尼亚岛",
+      "region": "澳洲",
+      "category": "地理",
+      "subcategory": "地",
+      "frontImage": "/卡牌图片/0139澳洲-地理-地-塔斯马尼亚岛（正）.jpg",
+      "backImage": "/卡牌图片/0139澳洲-地理-地-塔斯马尼亚岛（反）.jpg",
+      "diamonds": 2
+    },
+    {
+      "id": "0142",
+      "name": "斐济群岛",
+      "region": "太平洋岛",
+      "category": "地理",
+      "subcategory": "地",
+      "frontImage": "/卡牌图片/0142太平洋岛-地理-地-斐济群岛（正）.jpg",
+      "backImage": "/卡牌图片/0142太平洋岛-地理-地-斐济群岛（反）.jpg",
+      "diamonds": 2
+    },
+    {
+      "id": "0143",
+      "name": "塔希提岛",
+      "region": "太平洋岛",
+      "category": "地理",
+      "subcategory": "地",
+      "frontImage": "/卡牌图片/0143太平洋岛-地理-地-塔希提岛（正）.jpg",
+      "backImage": "/卡牌图片/0143太平洋岛-地理-地-塔希提岛（反）.jpg",
+      "diamonds": 2
+    },
+    {
+      "id": "0144",
+      "name": "复活节岛",
+      "region": "太平洋岛",
+      "category": "地理",
+      "subcategory": "地",
+      "frontImage": "/卡牌图片/0144太平洋岛-地理-地-复活节岛（正）.jpg",
+      "backImage": "/卡牌图片/0144太平洋岛-地理-地-复活节岛（反）.jpg",
+      "diamonds": 4
+    },
+    {
+      "id": "0146",
+      "name": "阿基维祭坛的摩艾",
+      "region": "太平洋岛",
+      "category": "宗教",
+      "subcategory": "筑",
+      "frontImage": "/卡牌图片/0146太平洋岛-宗教-筑-阿基维祭坛的摩艾（正）.jpg",
+      "backImage": "/卡牌图片/0146太平洋岛-宗教-筑-阿基维祭坛的摩艾（反）.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0147",
+      "name": "霍图∙玛图阿王的摩艾",
+      "region": "太平洋岛",
+      "category": "宗教",
+      "subcategory": "筑",
+      "frontImage": "/卡牌图片/0147太平洋岛-宗教-筑-霍图∙玛图阿王的摩艾（正）.jpg",
+      "backImage": "/卡牌图片/0147太平洋岛-宗教-筑-霍图∙玛图阿王的摩艾（反）.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0148",
+      "name": "东加历奇的摩艾",
+      "region": "太平洋岛",
+      "category": "宗教",
+      "subcategory": "筑",
+      "frontImage": "/卡牌图片/0148太平洋岛-宗教-筑-东加历奇的摩艾（正）.jpg",
+      "backImage": "/卡牌图片/0148太平洋岛-宗教-筑-东加历奇的摩艾（反）.jpg",
+      "diamonds": 3
+    },
+    {
+      "id": "0151",
+      "name": "太平洋",
+      "region": "太平洋岛",
+      "category": "地理",
+      "subcategory": "地",
+      "frontImage": "/卡牌图片/0151太平洋岛-地理-地-太平洋（正）.jpg",
+      "backImage": "/卡牌图片/0151太平洋岛-地理-地-太平洋（反）.jpg",
+      "diamonds": 2
+    },
+    {
+      "id": "0152",
+      "name": "宿雾岛",
+      "region": "东南亚",
+      "category": "地理",
+      "subcategory": "地",
+      "frontImage": "/卡牌图片/0152东南亚-地理-地-宿雾岛（正）.jpg",
+      "backImage": "/卡牌图片/0152东南亚-地理-地-宿雾岛（反）.jpg",
+      "diamonds": 2
+    },
+    {
+      "id": "0171",
+      "name": "波纳佩岛",
+      "region": "太平洋岛",
+      "category": "地理",
+      "subcategory": "地",
+      "frontImage": "/卡牌图片/0171太平洋岛-地理-地-波纳佩岛（正）.jpg",
+      "backImage": "/卡牌图片/0171太平洋岛-地理-地-波纳佩岛（反）.jpg",
+      "diamonds": 2
+    }
+  ],
+  "demo": true
+}

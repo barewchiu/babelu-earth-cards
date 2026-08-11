@@ -1,3 +1,14 @@
+# 贝贝鲁地球百科 · 数字伴侣 Demo
+
+**给评委 / 报名用：** 本仓库当前主线是实体 TCG 的线上延伸（掷纸地球选区 → 抽卡 → 收藏盒 → 钻石对战 → AI 朗读）。
+
+- 本地：`npm install && npm start` → http://localhost:3001
+- 详细说明：[README-COMPANION.md](./README-COMPANION.md)
+- 演示卡图为精简子集（约 24 张）；全量数据见 `src/data/cards.full.json`
+
+在线部署（推送后）：优先看 Vercel / GitHub Pages 最新构建。
+
+---
 # 🎮 贝贝鲁地球百科卡牌游戏
 
 一款寓教于乐的亲子互动卡牌游戏，结合地球百科知识学习与策略对战玩法。
